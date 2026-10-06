@@ -1,6 +1,6 @@
 import { BACKEND_API_URL } from '../config/api'
 import type { NewVideoGame, VideoGame } from '../types/videoGame'
-import { createAuthHeaders, logAuthHeader } from './authHeaders'
+import { createAuthHeaders } from './authHeaders'
 
 export interface VideoGamesService {
   getGames: (token: string) => Promise<VideoGame[]>
@@ -26,15 +26,14 @@ async function readErrorMessage(response: Response): Promise<string> {
   return `El backend respondió con un error (HTTP ${response.status})`
 }
 
-// Request protegido al backend: añade Authorization: Bearer <JWT>, lo muestra
-// en consola y convierte la respuesta JSON o lanza un Error entendible.
+// Request protegido al backend: añade Authorization: Bearer <JWT> y convierte
+// la respuesta JSON o lanza un Error entendible.
 async function protectedRequest<T>(token: string, path: string, init: RequestInit = {}): Promise<T> {
   if (!BACKEND_API_URL) {
     throw new Error('VITE_BACKEND_API_URL no está configurada. Revisa el archivo .env.')
   }
 
   const headers = createAuthHeaders(token)
-  logAuthHeader(headers)
 
   let response: Response
   try {

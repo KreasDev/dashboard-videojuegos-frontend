@@ -7,9 +7,3 @@ export function createAuthHeaders(token: string): AuthHeaders {
     'Content-Type': 'application/json',
   }
 }
-
-// Punto único para demostrar que cada request lleva el JWT.
-// Debe llamarse justo antes de enviar un request protegido real.
-export function logAuthHeader(headers: AuthHeaders): void {
-  console.log('Authorization:', headers.Authorization)
-}

@@ -21,7 +21,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(async (username: string, password: string) => {
     const newToken = await authService.login(username, password)
-    console.log('JWT recibido:', newToken)
     localStorage.setItem(TOKEN_STORAGE_KEY, newToken)
     setToken(newToken)
   }, [])

@@ -91,3 +91,21 @@ detectar errores, por lo que al abrir el dashboard pueden verse **dos**
 `GET /api/games` (y dos logs `Authorization: Bearer ...`). Es comportamiento
 exclusivo de desarrollo: en la versión de producción (`npm run build`) solo se
 hace una petición.
+
+## Despliegue con Docker
+
+Imagen multi-stage: build con Node (Vite) y servido por **nginx** (puerto interno
+80, SPA fallback a `index.html`). Las variables `VITE_*` se inyectan en build-time
+vía build args (URLs accesibles desde el navegador del host).
+
+```bash
+docker build \
+  --build-arg VITE_LDAP_API_URL=http://localhost:8000 \
+  --build-arg VITE_BACKEND_API_URL=http://localhost:3000 \
+  -t dashboard-videojuegos-frontend .
+docker run --rm -p 5173:80 dashboard-videojuegos-frontend
+```
+
+En el laboratorio no se ejecuta directamente, sino detrás del proxy nginx +
+Fail2Ban del repo `ldap-jwt-api` (`security-stack/`), que publica el puerto 5173.
+Los `console.log` que exponían el JWT / header Authorization fueron eliminados.

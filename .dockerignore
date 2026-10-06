@@ -1,0 +1,25 @@
+# Build artifacts and dependencies are produced inside the image.
+node_modules
+dist
+dist-ssr
+
+# Never ship local environment files or secrets into the image.
+.env
+.env.*
+!.env.example
+
+# VCS / tooling / docs not needed to build.
+.git
+.gitignore
+.gitattributes
+.vscode
+.idea
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docker files themselves.
+Dockerfile
+.dockerignore
