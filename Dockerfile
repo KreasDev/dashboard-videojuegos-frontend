@@ -18,7 +18,8 @@ RUN printf 'VITE_LDAP_API_URL=%s\nVITE_BACKEND_API_URL=%s\n' \
 RUN npm run build
 
 # --- Serve stage ---
-FROM nginx:1.27-alpine
+# nginx 1.27.x is end-of-life (Nuclei nginx-eol); use the supported stable branch.
+FROM nginx:1.30-alpine
 # Serve the compiled static assets (no Vite dev server in the final image).
 COPY --from=build /app/dist /usr/share/nginx/html
 # SPA routing + access/error logs kept active (used later by Fail2Ban).
