@@ -24,5 +24,10 @@ FROM nginx:1.30-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 # SPA routing + access/error logs kept active (used later by Fail2Ban).
 COPY default.conf /etc/nginx/conf.d/default.conf
+# The CSP connect-src must allow the same API origins the bundle was built with.
+ARG VITE_LDAP_API_URL=http://localhost:8000
+ARG VITE_BACKEND_API_URL=http://localhost:3000
+RUN sed -i "s#__CSP_CONNECT_SRC__#${VITE_LDAP_API_URL} ${VITE_BACKEND_API_URL}#" \
+      /etc/nginx/conf.d/default.conf
 EXPOSE 80
 # nginx:alpine already runs `nginx -g 'daemon off;'` as its default CMD.
