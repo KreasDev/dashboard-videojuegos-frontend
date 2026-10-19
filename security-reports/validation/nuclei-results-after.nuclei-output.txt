@@ -1,0 +1,33 @@
+time="2026-10-19T09:08:56-06:00" level=warning msg="Found orphan containers (juice-shop-lab) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container archive2-nuclei-run-7a2020fd646b Creating 
+ Container archive2-nuclei-run-7a2020fd646b Created 
+
+                     __     _
+   ____  __  _______/ /__  (_)
+  / __ \/ / / / ___/ / _ \/ /
+ / / / / /_/ / /__/ /  __/ /
+/_/ /_/\__,_/\___/_/\___/_/   v3.11.1
+
+		projectdiscovery.io
+
+[INF] Your current nuclei-templates  are outdated. Latest is v10.5.0
+[INF] Current nuclei version: v3.11.1 (latest)
+[INF] Current nuclei-templates version:  (outdated)
+[INF] New templates added in latest release: 295
+[INF] Templates loaded for current scan: 10160
+[INF] Executing 10160 signed templates from projectdiscovery/nuclei-templates
+[INF] Targets loaded for current scan: 1
+[INF] Templates clustered: 2703 (Reduced 2567 Requests)
+[0:01:00] | Templates: 10160 | Hosts: 1 | RPS: 65 | Matched: 0 | Errors: 15 | Requests: 3961/17486 (22%)
+[0:02:00] | Templates: 10160 | Hosts: 1 | RPS: 67 | Matched: 0 | Errors: 23 | Requests: 8175/17486 (46%)
+[0:03:00] | Templates: 10160 | Hosts: 1 | RPS: 61 | Matched: 0 | Errors: 54 | Requests: 11093/17486 (63%)
+[kafka-topics-list:value] [tcp] [info] frontend:80 ["microphone","doctype","href","close","ETag","Content-Security-Policy","Referrer-Policy","head","h1","GMT","Content-Length","camera","dashboard","24","6ad6321b-e2","payment","Cross-Origin-Embedder-Policy","charset","19","15","Connection","none","UTF-8","la","HTTP","Content-Type","connect-src","html","script-src","http","nosniff","lang","Error","Date","Mon","2026","Strict-Transport-Security","font-src","X-Content-Type-Options","same-origin","title","text","geolocation","procesar","solicitud","al","default-src","8000","meta","No","se","Oct","226","X-Frame-Options","13","max-age","includeSubDomains","data","p","Request","object-src","pudo","a","1.1","400","31536000","style-src","frame-ancestors","Permissions-Policy","DENY","es","localhost","base-uri","Cross-Origin-Opener-Policy","X-Permitted-Cross-Domain-Policies","body","Bad","self","usb","no-referrer","require-corp","Cross-Origin-Resource-Policy","Volver","img-src","3000","form-action"]
+[INF] Skipped frontend:5814 from target list as found unresponsive permanently: Get "https://frontend:5814/autopass": cause="port closed or filtered" address=frontend:5814 chain="connection refused"
+[0:04:00] | Templates: 10160 | Hosts: 1 | RPS: 55 | Matched: 1 | Errors: 81 | Requests: 13348/17486 (76%)
+[INF] Skipped frontend:4040 from target list as found unresponsive permanently: cause="port closed or filtered" address=frontend:4040 chain="connection refused; got err while executing https://frontend:4040/jobs/?\"'><script>alert(document.domain)</script>"
+[0:05:00] | Templates: 10160 | Hosts: 1 | RPS: 54 | Matched: 1 | Errors: 89 | Requests: 16385/17486 (93%)
+[0:05:23] | Templates: 10160 | Hosts: 1 | RPS: 53 | Matched: 1 | Errors: 236 | Requests: 17253/17486 (98%)
+[INF] Scan completed in 5m. 1 matches found.
+[INF] HTTP connections: 11693 total, 1790 new, 9903 reused (84.7%)
+[0:05:23] | Templates: 10160 | Hosts: 1 | RPS: 53 | Matched: 1 | Errors: 236 | Requests: 17253/17486 (98%)
+NUCLEI_EXIT=0
