@@ -19,15 +19,24 @@ RUN npm run build
 
 # --- Serve stage ---
 # nginx 1.27.x is end-of-life (Nuclei nginx-eol); use the supported stable branch.
-FROM nginx:1.30-alpine
+# Alpine's nginx package (1.30 stable) is used instead of the official nginx
+# image because Alpine also ships the headers-more module, which is required to
+# remove the Server header entirely (Nuclei tech-detect:nginx).
+FROM alpine:3.24
+RUN apk add --no-cache nginx nginx-mod-http-headers-more \
+ # Send logs to the container output, as the official nginx image does.
+ && ln -sf /dev/stdout /var/log/nginx/access.log \
+ && ln -sf /dev/stderr /var/log/nginx/error.log \
+ && rm -f /etc/nginx/http.d/default.conf
 # Serve the compiled static assets (no Vite dev server in the final image).
 COPY --from=build /app/dist /usr/share/nginx/html
 # SPA routing + access/error logs kept active (used later by Fail2Ban).
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/http.d/default.conf
 # The CSP connect-src must allow the same API origins the bundle was built with.
 ARG VITE_LDAP_API_URL=http://localhost:8000
 ARG VITE_BACKEND_API_URL=http://localhost:3000
 RUN sed -i "s#__CSP_CONNECT_SRC__#${VITE_LDAP_API_URL} ${VITE_BACKEND_API_URL}#" \
-      /etc/nginx/conf.d/default.conf
+      /etc/nginx/http.d/default.conf
 EXPOSE 80
-# nginx:alpine already runs `nginx -g 'daemon off;'` as its default CMD.
+STOPSIGNAL SIGQUIT
+CMD ["nginx", "-g", "daemon off;"]
